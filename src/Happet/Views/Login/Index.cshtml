@@ -1,0 +1,40 @@
+﻿@{
+    ViewData["Title"] = "Login Page";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-5 mx-auto">
+            <div id="first">
+                <div class="myform form ">
+                    <div class="logo mb-3">
+                        <div class="col-md-12 text-center">
+                            <h1>Login</h1>
+                        </div>
+                    </div>
+                    <form action="" method="post" name="login">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Email:</label>
+                            <input type="email" name="email" class="form-control" id="email" placeholder="Ex. joaodasilva@gmail.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Senha:</label>
+                            <input type="password" name="password" id="password" class="form-control">
+                        </div>
+                        <div class="col-md-12 text-center">
+                            <button type="submit" class=" btn btn-block mybtn btn-primary tx-tfm">Entrar</button>
+                        </div>
+                        <div class="col-md-12 ">
+                            <div class="login-or">
+                                <hr class="hr-or" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <p class="text-center">Não tem cadastro? <a asp-area="" asp-controller="Login" asp-action="Register" id="signup">cadastre-se</a></p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
