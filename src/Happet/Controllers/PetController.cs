@@ -12,5 +12,11 @@ namespace Happet.Controllers
         {
             return View();
         }
+
+        [HttpGet]
+        public IActionResult Details(int id)
+        {
+            return View();
+        }
     }
 }
