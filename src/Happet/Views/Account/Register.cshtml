@@ -12,16 +12,16 @@
                             <h1>Crie seu cadastro</h1>
                         </div>
                     </div>
-                    <form action="#" name="registration">
+                    <form asp-controller="Account" asp-action="Register" method="post">
                         <div class="form-group">
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="type" value="adopter" checked>
+                                <input class="form-check-input" type="radio" name="typePeople" value="0" checked>
                                 <label class="form-check-label">
                                     Adotante
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="type" value="ong">
+                                <input class="form-check-input" type="radio" name="typePeople" value="1">
                                 <label class="form-check-label">
                                     ONG
                                 </label>
@@ -32,15 +32,11 @@
                         <div id="adopter">
                             <div class="form-group">
                                 <label>Nome Completo</label>
-                                <input type="text" name="fullname" class="form-control" id="fullname">
+                                <input type="text" name="fullname" class="form-control" id="fullname" maxlength="100">
                             </div>
                             <div class="form-group">
                                 <label>RG</label>
                                 <input type="text" name="rg" class="form-control" id="rg">
-                            </div>
-                            <div class="form-group">
-                                <label>Expedição</label>
-                                <input type="text" name="dispatch" class="form-control" id="dispatch" maxlength="3">
                             </div>
                             <div class="form-group">
                                 <label>CPF</label>
@@ -52,12 +48,11 @@
                             </div>
                         </div>
                         <!--#Adopter-->
-
-                        <!--#ONG-->
+                        <!--#NGO-->
                         <div id="ong" style="display:none;">
                             <div class="form-group">
                                 <label>Nome Fantasia</label>
-                                <input type="text" name="fantasyname" class="form-control" id="fantasyname">
+                                <input type="text" name="fantasyname" class="form-control" id="fantasyname" maxlength="80">
                             </div>
 
                             <div class="form-group">
@@ -65,31 +60,39 @@
                                 <input type="text" name="cnpj" class="form-control" id="cnpj">
                             </div>
                         </div>
-                        <!--#ONG-->
+                        <!--#NGO-->
 
                         <div class="form-group">
                             <label>Área de Atuação</label>
-                            <input type="text" name="occupationarea" class="form-control" id="occupationarea">
+                            <input type="text" name="occupationarea" class="form-control" id="occupationarea" maxlength="50">
                         </div>
                         <div class="form-group">
                             <label>Celular</label>
-                            <input type="text" name="celular" class="form-control" id="celular">
+                            <input type="text" name="cellphone" class="form-control" id="cellphone">
                         </div>
                         <div class="form-group">
                             <label>Endereço</label>
-                            <input type="text" name="address" class="form-control" id="address">
+                            <input type="text" name="address" class="form-control" id="address" maxlength="100">
+                        </div>
+                        <div class="form-group">
+                            <label>Bairro</label>
+                            <input type="text" name="district" class="form-control" id="district" maxlength="100">
                         </div>
                         <div class="form-group">
                             <label>Cidade</label>
-                            <input type="text" name="city" class="form-control" id="city">
+                            <input type="text" name="city" class="form-control" id="city" maxlength="100">
                         </div>
                         <div class="form-group">
                             <label>Estado</label>
-                            <input type="text" name="state" class="form-control" id="state">
+                            <input type="text" name="state" class="form-control" id="state" maxlength="50">
+                        </div>
+                        <div class="form-group">
+                            <label>Cep</label>
+                            <input type="text" name="cep" class="form-control" id="cep">
                         </div>
                         <div class="form-group">
                             <label>Email</label>
-                            <input type="email" name="email" class="form-control" id="email">
+                            <input type="email" name="email" class="form-control" id="email" maxlength="100">
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">Password</label>
@@ -98,12 +101,12 @@
                         <div class="col-md-12 text-center mb-3">
                             <button type="submit" class=" btn btn-block mybtn btn-primary tx-tfm">Criar seu cadastro</button>
                         </div>
-                        <div class="col-md-12 ">
-                            <div class="form-group">
-                                <p class="text-center">Já tem cadastro? <a asp-area="" asp-controller="Login" asp-action="Index" id="signin">entrar</a></p>
-                            </div>
-                        </div>
                     </form>
+                    <div class="col-md-12 ">
+                        <div class="form-group">
+                            <p class="text-center">Já tem cadastro? <a asp-controller="Account" asp-action="Login" id="signin">entrar</a></p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

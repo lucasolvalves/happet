@@ -5,10 +5,12 @@
 
 
 function typeFormByTypePerson() {
-    $(':radio[name="type"]').change(function () {
+    const adopter = "0";
+
+    $(':radio[name="typePeople"]').change(function () {
         var typePerson = $(this).filter(':checked').val();
 
-        if (typePerson === "adopter") {
+        if (typePerson === adopter) {
             $("#ong").css("display", "none");
             $("#adopter").css("display", "block");
 
@@ -16,7 +18,5 @@ function typeFormByTypePerson() {
             $("#adopter").css("display", "none");
             $("#ong").css("display", "block");
         }
-
-        alert(category);
     });
 }

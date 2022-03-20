@@ -1,4 +1,4 @@
-﻿using Happet.Models;
+﻿using Happet.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;

@@ -1,6 +1,6 @@
 using System;
 
-namespace Happet.Models
+namespace Happet.ViewModel
 {
     public class ErrorViewModel
     {
