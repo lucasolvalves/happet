@@ -1,22 +1,15 @@
 ﻿$(document).ready(function () {
+    $('#typePerson').modal({ backdrop: 'static', keyboard: false });
 
-    typeFormByTypePerson();
+    OnlyNumbers('#RG');
+    OnlyNumbers('#CPF');
+    OnlyNumbers('#CNPJ');
+    OnlyNumbers('#CellPhone');
+    OnlyNumbers('#CEP');
 });
 
-
-function typeFormByTypePerson() {
-    const adopter = "0";
-
-    $(':radio[name="typePeople"]').change(function () {
-        var typePerson = $(this).filter(':checked').val();
-
-        if (typePerson === adopter) {
-            $("#ong").css("display", "none");
-            $("#adopter").css("display", "block");
-
-        } else {
-            $("#adopter").css("display", "none");
-            $("#ong").css("display", "block");
-        }
+function OnlyNumbers(id) {
+    $(id).on('input', function (event) {
+        this.value = this.value.replace(/[^0-9]/g, '');
     });
 }

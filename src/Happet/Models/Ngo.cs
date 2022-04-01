@@ -14,10 +14,11 @@ namespace Happet.Models
         public virtual People People { get; set; }
 
         [Required]
-        [StringLength(80)]
+        [StringLength(100)]
         public string FantasyName { get; set; }
 
         [Required]
-        public int CNPJ { get; set; }
+        [StringLength(18)]
+        public string CNPJ { get; set; }
     }
 }

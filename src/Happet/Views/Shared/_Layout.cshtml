@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -13,7 +17,7 @@
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
                 <div class="navbar-nav flex-grow-1">
-                    <b><a class="navbar-brand" style="font-size: 25px" asp-area="" asp-controller="Home" asp-action="Index">Happet</a></b>
+                    <b><a class="navbar-brand" style="font-size: 25px" asp-controller="Home" asp-action="Index">Happet</a></b>
                 </div>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -35,46 +39,61 @@
                                 <span style="margin-top:9px;">
                                     <i class="fa-solid fa-house"></i>
                                 </span>
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                                <a class="nav-link text-dark" asp-controller="Home" asp-action="Index">Home</a>
                             </div>
                         </li>
-                        <li class="nav-item">
-                            <div class="input-group">
-                                <span style="margin-top:9px;">
-                                    <i class="fa-solid fa-user"></i>
-                                </span>
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Entrar</a>
-                            </div>
-                        </li>
-                        <li class="nav-item">
-                            <div class="btn-group">
-                                <span style="margin-top:9px;">
-                                    <i class="fa-solid fa-user"></i>
-                                </span>
-                                <a class="nav-link text-dark dropdown-toggle" style="cursor: pointer;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Olá, Lucas</a>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" asp-area="" asp-controller="Pet" asp-action="Index">
-                                        <span style="margin-top:9px;">
-                                            <i class="fa-solid fa-paw"></i>
-                                        </span>
-                                        Pets
-                                    </a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" asp-area="" asp-controller="Doacao" asp-action="Index">
-                                        <span style="margin-top:9px;">
-                                            <i class="fa-solid fa-money-bill-wave"></i>
-                                        </span>
-                                        Doações
-                                    </a>
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                            <li class="nav-item">
+                                <div class="btn-group">
+                                    <span style="margin-top:9px;">
+                                        <i class="fa-solid fa-user"></i>
+                                    </span>
+                                    <a class="nav-link text-dark dropdown-toggle" style="cursor: pointer;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Olá, @User.Identity.Name</a>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" asp-controller="Pet" asp-action="Index">
+                                            <span style="margin-top:9px;">
+                                                <i class="fa-solid fa-paw"></i>
+                                            </span>
+                                            Pets
+                                        </a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" asp-controller="Doacao" asp-action="Index">
+                                            <span style="margin-top:9px;">
+                                                <i class="fa-solid fa-money-bill-wave"></i>
+                                            </span>
+                                            Doações
+                                        </a>
+                                        <div class="dropdown-divider"></div>
+                                        <form asp-controller="Account" asp-action="Logout" asp-route-returnUrl="@Url.Page("/")" method="post">
+                                            <button type="submit" class="btn btn-link text-dark dropdown-item">
+                                                <span style="margin-top:9px;">
+                                                    <i class="fa-solid fa-right-from-bracket"></i>
+                                                </span>
+                                                Sair da conta
+                                            </button>
+                                        </form>
+                                    </div>
                                 </div>
-                            </div>
-                        </li>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <div class="input-group">
+                                    <span style="margin-top:9px;">
+                                        <i class="fa-solid fa-user"></i>
+                                    </span>
+                                    <a class="nav-link text-dark" asp-controller="Account" asp-action="Login">Entrar</a>
+                                </div>
+                            </li>
+                        }
                         <li class="nav-item">
                             <div class="input-group">
                                 <span style="margin-top:9px;">
                                     <i class="fa-solid fa-circle-question"></i>
                                 </span>
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Faq" asp-action="Index">FAQ</a>
+                                <a class="nav-link text-dark" asp-controller="Faq" asp-action="Index">FAQ</a>
                             </div>
                         </li>
                     </ul>
@@ -90,7 +109,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2022 - Happet - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2022 - Happet - <a asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

@@ -1,111 +1,38 @@
 ﻿@{
-    ViewData["Title"] = "Login Page";
+    ViewData["Title"] = "Cadastro";
 }
 
 <div class="container">
     <div class="row">
-        <div class="col-md-5 mx-auto">
-            <div id="first">
-                <div class="myform form ">
-                    <div class="logo mb-3">
-                        <div class="col-md-12 text-center">
-                            <h1>Crie seu cadastro</h1>
+        <div class="col-md-12">
+            <div class="modal fade" id="typePerson" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Selecione o seu perfil:</h5>
                         </div>
-                    </div>
-                    <form asp-controller="Account" asp-action="Register" method="post">
-                        <div class="form-group">
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="typePeople" value="0" checked>
-                                <label class="form-check-label">
-                                    Adotante
-                                </label>
+                        <form asp-controller="Account" asp-action="SetProfile" method="post">
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="typePeople" value="0" checked>
+                                        <label class="form-check-label">
+                                            Adotante
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="typePeople" value="1">
+                                        <label class="form-check-label">
+                                            ONG
+                                        </label>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="typePeople" value="1">
-                                <label class="form-check-label">
-                                    ONG
-                                </label>
+                            <div class="modal-footer">
+                                <a class="btn btn-danger" asp-controller="Home" asp-action="Index">Voltar</a>
+                                <button type="submit" class="btn btn-primary">Próximo</button>
                             </div>
-                        </div>
-
-                        <!--#Adopter-->
-                        <div id="adopter">
-                            <div class="form-group">
-                                <label>Nome Completo</label>
-                                <input type="text" name="fullname" class="form-control" id="fullname" maxlength="100">
-                            </div>
-                            <div class="form-group">
-                                <label>RG</label>
-                                <input type="text" name="rg" class="form-control" id="rg">
-                            </div>
-                            <div class="form-group">
-                                <label>CPF</label>
-                                <input type="text" name="cpf" class="form-control" id="cpf">
-                            </div>
-                            <div class="form-group">
-                                <label>Data de Nascimento</label>
-                                <input type="date" name="birthdate" class="form-control" id="birthdate">
-                            </div>
-                        </div>
-                        <!--#Adopter-->
-                        <!--#NGO-->
-                        <div id="ong" style="display:none;">
-                            <div class="form-group">
-                                <label>Nome Fantasia</label>
-                                <input type="text" name="fantasyname" class="form-control" id="fantasyname" maxlength="80">
-                            </div>
-
-                            <div class="form-group">
-                                <label>CNPJ</label>
-                                <input type="text" name="cnpj" class="form-control" id="cnpj">
-                            </div>
-                        </div>
-                        <!--#NGO-->
-
-                        <div class="form-group">
-                            <label>Área de Atuação</label>
-                            <input type="text" name="occupationarea" class="form-control" id="occupationarea" maxlength="50">
-                        </div>
-                        <div class="form-group">
-                            <label>Celular</label>
-                            <input type="text" name="cellphone" class="form-control" id="cellphone">
-                        </div>
-                        <div class="form-group">
-                            <label>Endereço</label>
-                            <input type="text" name="address" class="form-control" id="address" maxlength="100">
-                        </div>
-                        <div class="form-group">
-                            <label>Bairro</label>
-                            <input type="text" name="district" class="form-control" id="district" maxlength="100">
-                        </div>
-                        <div class="form-group">
-                            <label>Cidade</label>
-                            <input type="text" name="city" class="form-control" id="city" maxlength="100">
-                        </div>
-                        <div class="form-group">
-                            <label>Estado</label>
-                            <input type="text" name="state" class="form-control" id="state" maxlength="50">
-                        </div>
-                        <div class="form-group">
-                            <label>Cep</label>
-                            <input type="text" name="cep" class="form-control" id="cep">
-                        </div>
-                        <div class="form-group">
-                            <label>Email</label>
-                            <input type="email" name="email" class="form-control" id="email" maxlength="100">
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Password</label>
-                            <input type="password" name="password" id="password" class="form-control">
-                        </div>
-                        <div class="col-md-12 text-center mb-3">
-                            <button type="submit" class=" btn btn-block mybtn btn-primary tx-tfm">Criar seu cadastro</button>
-                        </div>
-                    </form>
-                    <div class="col-md-12 ">
-                        <div class="form-group">
-                            <p class="text-center">Já tem cadastro? <a asp-controller="Account" asp-action="Login" id="signin">entrar</a></p>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </div>

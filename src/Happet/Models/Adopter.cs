@@ -18,10 +18,12 @@ namespace Happet.Models
         public string FullName { get; set; }
 
         [Required]
-        public int RG { get; set; }
+        [StringLength(12)]
+        public string RG { get; set; }
 
         [Required]
-        public int CPF { get; set; }
+        [StringLength(14)]
+        public string CPF { get; set; }
 
         [Required]
         public DateTime BirthDate { get; set; }

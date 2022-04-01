@@ -1,4 +1,6 @@
 using Happet.Data;
+using Happet.Extensions;
+using Happet.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -30,6 +32,12 @@ namespace Happet
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDatabaseDeveloperPageExceptionFilter();
+
+            services.AddIdentity<IdentityUser, IdentityRole>()
+                .AddErrorDescriber<IdentityPortugueseMessagesExtension>()
+                .AddEntityFrameworkStores<HappetDbContext>();
+
+            services.AddScoped<IAccountRepository, AccountRepository>();
 
             services.AddControllersWithViews();
             services.AddRazorPages().AddRazorRuntimeCompilation();

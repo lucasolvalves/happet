@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Happet.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -158,14 +158,13 @@ namespace Happet.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    AccupationArea = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    CellPhone = table.Column<int>(type: "int", nullable: false),
+                    OccupationArea = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    CellPhone = table.Column<string>(type: "nvarchar(16)", maxLength: 16, nullable: false),
                     Address = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     District = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     City = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     State = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    CEP = table.Column<int>(type: "int", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    CEP = table.Column<string>(type: "nvarchar(9)", maxLength: 9, nullable: false),
                     CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
@@ -185,8 +184,8 @@ namespace Happet.Migrations
                 {
                     IdPeople = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     FullName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    RG = table.Column<int>(type: "int", nullable: false),
-                    CPF = table.Column<int>(type: "int", nullable: false),
+                    RG = table.Column<string>(type: "nvarchar(12)", maxLength: 12, nullable: false),
+                    CPF = table.Column<string>(type: "nvarchar(14)", maxLength: 14, nullable: false),
                     BirthDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
@@ -205,8 +204,8 @@ namespace Happet.Migrations
                 columns: table => new
                 {
                     IdPeople = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    FantasyName = table.Column<string>(type: "nvarchar(80)", maxLength: 80, nullable: false),
-                    CNPJ = table.Column<int>(type: "int", nullable: false)
+                    FantasyName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    CNPJ = table.Column<string>(type: "nvarchar(18)", maxLength: 18, nullable: false)
                 },
                 constraints: table =>
                 {

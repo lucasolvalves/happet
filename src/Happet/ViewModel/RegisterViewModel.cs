@@ -1,35 +1,58 @@
-﻿using Happet.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Happet.ViewModel
 {
     public record RegisterViewModel
     {
-        public ETypePeople TypePeople { get; set; }
+        public Guid Id { get; set; } = Guid.NewGuid();
+        public string UserId { get; set; }
 
-        #region Adopter
-        public string FullName { get; set; }
-        public int RG { get; set; }
-        public int CPF { get; set; }
-        public DateTime BirthDate { get; set; }
-        #endregion Adopter
+        [Display(Name = "Área de Atuação")]
+        [StringLength(50, ErrorMessage = "O campo {0} não pode exceder {1} caracteres.")]
+        public string OccupationArea { get; set; }
 
-        #region Ngo
-        public string FantasyName { get; set; }
-        public int CNPJ { get; set; }
-        #endregion Ngo
+        [Display(Name = "Celular")]
+        [Required(ErrorMessage = "O campo é obrigatorio.")]
+        [DataType(DataType.PhoneNumber)]
+        [StringLength(11, MinimumLength = 11, ErrorMessage = "O campo {0} deve conter {1} caracteres.")]
+        public string CellPhone { get; set; }
 
-        public string AccupationArea { get; set; }
-        public int CellPhone { get; set; }
+        [Display(Name = "Endereço")]
+        [Required(ErrorMessage = "O campo é obrigatorio.")]
+        [StringLength(100, ErrorMessage = "O campo {0} deve conter {1} caracteres.")]
         public string Address { get; set; }
+
+        [Display(Name = "Bairro")]
+        [Required(ErrorMessage = "O campo é obrigatorio.")]
+        [StringLength(100, ErrorMessage = "O campo {0} deve conter {1} caracteres.")]
         public string District { get; set; }
+
+        [Display(Name = "Cidade")]
+        [Required(ErrorMessage = "O campo é obrigatorio.")]
+        [StringLength(100, ErrorMessage = "O campo {0} deve conter {1} caracteres.")]
         public string City { get; set; }
+
+        [Display(Name = "Estado")]
+        [Required(ErrorMessage = "O campo é obrigatorio.")]
+        [StringLength(100, ErrorMessage = "O campo {0} deve conter {1} caracteres.")]
         public string State { get; set; }
-        public int CEP { get; set; }
+
+        [Display(Name = "CEP")]
+        [Required(ErrorMessage = "O campo é obrigatorio.")]
+        [StringLength(8, ErrorMessage = "O campo {0} não pode exceder {1} caracteres.")]
+        public string CEP { get; set; }
+
+        [Display(Name = "Email")]
+        [Required(ErrorMessage = "O campo é obrigatorio.")]
+        [DataType(DataType.EmailAddress)]
+        [StringLength(256, ErrorMessage = "O campo {0} não pode exceder {1} caracteres.")]
         public string Email { get; set; }
-        public DateTime CreateDate { get; set; }
+
+        [Display(Name = "Senha")]
+        [Required(ErrorMessage = "O campo é obrigatorio.")]
+        [DataType(DataType.Password)]
+        public string Password { get; set; }
+        public DateTime CreateDate { get; set; } = DateTime.Now;
     }
 }

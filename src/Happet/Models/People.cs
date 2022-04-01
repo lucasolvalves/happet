@@ -17,10 +17,11 @@ namespace Happet.Models
         public virtual IdentityUser IdentityUser { get; set; }
 
         [StringLength(50)]
-        public string AccupationArea { get; set; }
+        public string OccupationArea { get; set; }
 
         [Required]
-        public int CellPhone { get; set; }
+        [StringLength(16)]
+        public string CellPhone { get; set; }
 
         [Required]
         [StringLength(100)]
@@ -39,11 +40,8 @@ namespace Happet.Models
         public string State { get; set; }
 
         [Required]
-        public int CEP { get; set; }
-
-        [Required]
-        [StringLength(100)]
-        public string Email { get; set; }
+        [StringLength(9)]
+        public string CEP { get; set; }
 
         [Required]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

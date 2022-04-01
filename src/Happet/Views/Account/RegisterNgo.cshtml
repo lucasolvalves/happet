@@ -1,0 +1,44 @@
+﻿@model RegisterNgoViewModel
+@{
+    ViewData["Title"] = "Cadastro ONG";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-5 mx-auto">
+            <div id="first">
+                <div class="myform form ">
+                    <div class="logo mb-3">
+                        <div class="col-md-12 text-center">
+                            <h1>Crie seu cadastro</h1>
+                        </div>
+                    </div>
+                    <strong class="alert-danger">@TempData["Message"]</strong>
+                    <br /><br />
+                    <form asp-controller="Account" asp-action="RegisterNgo" method="post">
+                        <div class="form-group">
+                            <label asp-for="FantasyName" class="control-label">Nome Fantasia *</label>
+                            <input asp-for="FantasyName" class="form-control" />
+                            <span asp-validation-for="FantasyName" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="CNPJ" class="control-label">CNPJ *</label>
+                            <input asp-for="CNPJ" class="form-control" />
+                            <span asp-validation-for="CNPJ" class="text-danger"></span>
+                        </div>
+                        @await Html.PartialAsync("../Account/_RegisterPartial.cshtml", Model)
+                        <div class="col-md-12 text-center mb-3">
+                            <button type="submit" class=" btn btn-block mybtn btn-primary tx-tfm">Criar seu cadastro</button>
+                        </div>
+                    </form>
+                    <div class="col-md-12 ">
+                        <div class="form-group">
+                            <p class="text-center">Já tem cadastro? <a asp-controller="Account" asp-action="Login" id="signin">entrar</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
