@@ -1,7 +1,69 @@
-﻿@{
-    ViewData["Title"] = "Pet Page";
+﻿@model IEnumerable<PetsGridViewModel>
+@{
+    ViewData["Title"] = "Pets";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Pet</h1>
+<div class="container">
+    <h3>
+        Pets
+    </h3>
+    <br />
+    <div class="row">
+        <div class="col-md-12" style="margin-bottom: 20px;">
+            <a class="btn btn-success btn-lg" asp-controller="Pet" asp-action="Create">
+                <strong>
+                    <i class="fa-solid fa-plus"></i> Novo
+                </strong>
+            </a>
+        </div>
+    </div>
+    <div class="row" style="margin-bottom: 20px;">
+        <div class="col-md-12">
+            <table class="table table-bordered" id="tablePets">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Código</th>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Raça</th>
+                        <th scope="col">Tipo</th>
+                        <th scope="col">Sexo</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>@item.IdPet</td>
+                            <td>@item.Name</td>
+                            <td>@item.Breed</td>
+                            <td>@item.Type</td>
+                            <td>@item.Genre</td>
+                            <td>@item.Status</td>
+                            <td>
+                                <a style="font-size: 20px; color: #6a6f74;" asp-controller="Pet" asp-action="Details" asp-route-id="@item.IdPet" title="Detalhes">
+                                    <strong>
+                                        <i class="fa-solid fa-eye"></i>
+                                    </strong>
+                                </a>
+                                <a style="font-size: 20px;" asp-controller="Pet" asp-action="Edit" asp-route-id="@item.IdPet" title="Alterar">
+                                    <strong>
+                                        <i class="fa-solid fa-pen-to-square"></i>
+                                    </strong>
+                                </a>
+                                <a style="font-size: 20px; color: #e52323;" asp-controller="Pet" asp-action="Delete" asp-route-id="@item.IdPet" title="Excluir">
+                                    <strong>
+                                        <i class="fa-solid fa-circle-minus"></i>
+                                    </strong>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>

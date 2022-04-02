@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Happet.Controllers
 {
-    public class DoacaoController : Controller
+    public class DonationController : Controller
     {
         public IActionResult Index()
         {

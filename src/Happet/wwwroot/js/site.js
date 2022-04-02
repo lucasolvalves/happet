@@ -1,5 +1,7 @@
 ﻿$(document).ready(function () {
     $('#typePerson').modal({ backdrop: 'static', keyboard: false });
+    $('#deletePets').modal({ backdrop: 'static', keyboard: false });
+    $('#AdoptionTerm').modal({ backdrop: 'static', keyboard: false });
 
     OnlyNumbers('#RG');
     OnlyNumbers('#CPF');

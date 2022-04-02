@@ -48,10 +48,10 @@
     <div class="row" style="margin-bottom: 20px;">
         <div class="col-md-1"></div>
         <div class="col-md-2">
-            <a asp-area="" asp-controller="Home" asp-action="Index" class="btn btn-primary btn-lg active" style="background-color: #7187FF; border-color: #0866F2; color: black; font-weight: bold">Voltar</a>
+            <button onclick="history.back()" class="btn btn-primary btn-lg active" style="background-color: #7187FF; border-color: #0866F2;">Voltar</button>
         </div>
         <div class="col-md-3">
-            <a href="#" class="btn btn-secondary btn-lg active" style="background-color: #74FDB3; border-color: #08F24A; color: black; font-weight: bold" role="button" aria-pressed="true">Adotar esse animal</a>
+            <a asp-controller="Pet" asp-action="Adopt" asp-route-id="10" class="btn btn-secondary btn-lg active" style="background-color: #74FDB3; border-color: #08F24A;" role="button" aria-pressed="true">Adotar esse animal</a>
         </div>
     </div>
 </div>

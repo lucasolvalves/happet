@@ -1,0 +1,141 @@
+﻿@{
+    ViewData["Title"] = "Cadastro do Pet";
+}
+
+<style>
+    .list-group-item {
+        border: none !important;
+        padding: 0.5rem 1.25rem !important;
+    }
+</style>
+
+<div class="container">
+    <h3>
+        Cadastro do Pet
+    </h3>
+    <br />
+    <form asp-controller="Pet" asp-action="Index" method="post">
+        <div class="row" style="margin-bottom: 20px;">
+            <div class="col-md-6">
+                <div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <div class="form-group">
+                                <label><b>Nome:</b></label>
+                                <input type="text" name="name" class="form-control">
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <div class="form-group">
+                                <label><b>Raça:</b></label>
+                                <input type="text" name="Breed" class="form-control">
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <div class="form-group">
+                                <label><b>Cor:</b></label>
+                                <input type="text" name="Color" class="form-control">
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <div class="form-group">
+                                <label><b>Idade:</b></label>
+                                <input type="text" name="Age" class="form-control">
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <div class="form-group">
+                                <label><b>Sexo:</b></label>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="Genre" value="0" checked>
+                                    <label class="form-check-label">
+                                        Fêmea
+                                    </label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="Genre" value="1">
+                                    <label class="form-check-label">
+                                        Macho
+                                    </label>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <div class="form-group">
+                                <label><b>Castrado:</b></label>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="Castrated" value="0" checked>
+                                    <label class="form-check-label">
+                                        Sim
+                                    </label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="Castrated" value="1">
+                                    <label class="form-check-label">
+                                        Não
+                                    </label>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <span><b>Vacinas:</b></span>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
+                                <label class="form-check-label" for="inlineCheckbox2">Raiva</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
+                                <label class="form-check-label" for="inlineCheckbox2">V10</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
+                                <label class="form-check-label" for="inlineCheckbox2">Polivalente</label>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <div class="form-group">
+                                <label><b>Localidade:</b></label>
+                                <input type="text" name="Location" class="form-control">
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <div class="form-group">
+                                <label><b>Tipo:</b></label>
+                                <select class="custom-select">
+                                    <option selected>Selecione...</option>
+                                    <option value="1">Cachorro</option>
+                                    <option value="2">Gato</option>
+                                </select>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <div class="form-group">
+                                <label><b>Imagem:</b></label>
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="customFile">
+                                    <label class="custom-file-label" for="customFile">Escolher Arquivo</label>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label><b>Observações:</b></label>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="margin-bottom: 20px;">
+            <div class="col-md-4"></div>
+            <div class="col-md-2">
+                <button onclick="history.back()" class="btn btn-primary btn-lg active" style="background-color: #7187FF; border-color: #0866F2;">Voltar</button>
+            </div>
+            <div class="col-md-1">
+                <button type="submit" class="btn btn-success btn-lg">Cadastrar</button>
+            </div>
+            <div class="col-md-5"></div>
+        </div>
+    </form>
+</div>
