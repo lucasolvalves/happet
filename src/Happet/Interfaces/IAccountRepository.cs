@@ -10,5 +10,10 @@ namespace Happet.Interfaces
     {
         Task AddAdopterAsync(Adopter adopter);
         Task AddNgoAsync(Ngo ngo);
+        Task UpdateAdopterAsync(Adopter adopter);
+        Task UpdateNgoAsync(Ngo ngo);
+        Task<People> GetPeopleByUserIdAsync(string userId);
+        Task<Adopter> GetAdopterByPeopleIdAsync(Guid peopleId);
+        Task<Ngo> GetNgoByPeopleIdAsync(Guid peopleId);
     }
 }

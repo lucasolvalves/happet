@@ -2,7 +2,7 @@
 {
     public enum ETypePeople
     {
-        Adopter = 0,
-        Ngo = 1
+        Adopter = 1,
+        Ngo = 2
     }
 }

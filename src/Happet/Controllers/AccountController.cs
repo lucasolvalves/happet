@@ -5,7 +5,9 @@ using Happet.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Happet.Controllers
@@ -46,7 +48,7 @@ namespace Happet.Controllers
             }
             else
             {
-                TempData["error-message"] = "Usuário ou senha Inválidos.";
+                TempData["error-message-login"] = "Usuário ou senha Inválidos.";
                 return View();
             }
         }
@@ -56,11 +58,7 @@ namespace Happet.Controllers
         public async Task<IActionResult> Logout(string returnUrl = null)
         {
             await _signInManager.SignOutAsync();
-
-            if (returnUrl != null)
-                return LocalRedirect(returnUrl);
-            else
-                return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Home");
         }
 
         public ActionResult Register()
@@ -96,7 +94,7 @@ namespace Happet.Controllers
                 return View();
 
             registerAdopterViewModel.UserId = newUser.Id;
-            await _accountRepository.AddAdopterAsync(registerAdopterViewModel.ToAdopter());
+            await _accountRepository.AddAdopterAsync(registerAdopterViewModel.ToModel());
 
             return RedirectToAction("Login");
         }
@@ -113,13 +111,13 @@ namespace Happet.Controllers
             if (!ModelState.IsValid)
                 return View();
 
-            var newUser = new IdentityUser { UserName = registerNgoViewModel.FantasyName, Email = registerNgoViewModel.Email };
+            var newUser = new IdentityUser { UserName = registerNgoViewModel.Email, Email = registerNgoViewModel.Email };
 
             if (!await CreateUser(newUser, registerNgoViewModel.Password))
                 return View();
 
             registerNgoViewModel.UserId = newUser.Id;
-            await _accountRepository.AddNgoAsync(registerNgoViewModel.ToNgo());
+            await _accountRepository.AddNgoAsync(registerNgoViewModel.ToModel());
 
             return RedirectToAction("Login");
         }
@@ -129,7 +127,79 @@ namespace Happet.Controllers
             var identityResult = await _userManager.CreateAsync(identityUser, password);
 
             if (!identityResult.Succeeded)
-                TempData["error-message"] = identityResult.Errors.Select(x => x.Description).ToList();
+                TempData["error-message-create-user"] = identityResult.Errors.Select(x => x.Description).ToList();
+
+            return identityResult.Succeeded;
+        }
+
+        public async Task<IActionResult> Edit()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var people = await _accountRepository.GetPeopleByUserIdAsync(userId);
+
+            if (people.TypePeople == ETypePeople.Adopter)
+            {
+                var adopter = await _accountRepository.GetAdopterByPeopleIdAsync(people.Id);
+                return View("EditAdopter", adopter.ToViewModel());
+            }
+            else
+            {
+                var ngo = await _accountRepository.GetNgoByPeopleIdAsync(people.Id);
+                return View("EditNgo", ngo.ToViewModel());
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditAdopter(EditAdopterViewModel editAdopterViewModel)
+        {
+            if (!ModelState.IsValid)
+                return View();
+
+            if (string.IsNullOrEmpty(editAdopterViewModel.CurrentPassword) && string.IsNullOrEmpty(editAdopterViewModel.NewPassword))
+            {
+                await _accountRepository.UpdateAdopterAsync(editAdopterViewModel.ToModel());
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                if (!await EditUser(editAdopterViewModel.Email, editAdopterViewModel.CurrentPassword, editAdopterViewModel.NewPassword))
+                    return View();
+
+                await _accountRepository.UpdateAdopterAsync(editAdopterViewModel.ToModel());
+                return RedirectToAction("Index", "Home");
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditNgo(EditNgoViewModel editNgoViewModel)
+        {
+            if (!ModelState.IsValid)
+                return View();
+
+            if (string.IsNullOrEmpty(editNgoViewModel.CurrentPassword) && string.IsNullOrEmpty(editNgoViewModel.NewPassword))
+            {
+                await _accountRepository.UpdateNgoAsync(editNgoViewModel.ToModel());
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                if (!await EditUser(editNgoViewModel.Email, editNgoViewModel.CurrentPassword, editNgoViewModel.NewPassword))
+                    return View();
+
+                await _accountRepository.UpdateNgoAsync(editNgoViewModel.ToModel());
+                return RedirectToAction("Index", "Home");
+            }
+        }
+
+        private async Task<bool> EditUser(string email, string currentPassword, string newPassword)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+            var identityResult = await _userManager.ChangePasswordAsync(user, currentPassword, newPassword);
+
+            if (!identityResult.Succeeded)
+                TempData["error-message-edit-user"] = identityResult.Errors.Select(x => x.Description).ToList();
 
             return identityResult.Succeeded;
         }

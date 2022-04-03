@@ -1,8 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Happet.ViewModel
 {
-    public record RegisterNgoViewModel : RegisterPeopleViewModel
+    public record EditNgoViewModel : EditPeopleViewModel
     {
         [Display(Name = "Nome Fantasia")]
         [Required(ErrorMessage = "O campo é obrigatorio.")]

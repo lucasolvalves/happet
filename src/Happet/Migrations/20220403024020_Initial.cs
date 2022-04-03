@@ -158,6 +158,7 @@ namespace Happet.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    TypePeople = table.Column<int>(type: "int", nullable: false),
                     OccupationArea = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     CellPhone = table.Column<string>(type: "nvarchar(16)", maxLength: 16, nullable: false),
                     Address = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),

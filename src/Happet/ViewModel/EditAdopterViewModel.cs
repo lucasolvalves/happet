@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Happet.ViewModel
 {
-    public record RegisterAdopterViewModel : RegisterPeopleViewModel
+    public record EditAdopterViewModel : EditPeopleViewModel
     {
         [Display(Name = "Nome Completo")]
         [Required(ErrorMessage = "O campo é obrigatorio.")]

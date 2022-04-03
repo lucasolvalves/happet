@@ -13,8 +13,15 @@
                             <h1>Crie seu cadastro</h1>
                         </div>
                     </div>
-                    <strong class="alert-danger">@TempData["Message"]</strong>
-                    <br /><br />
+                    @if (TempData["error-message-create-user"] != null)
+                    {
+                        var errors = TempData["error-message-create-user"] as List<string>;
+                        @foreach (var errorMessage in errors)
+                        {
+                            <strong class="alert-danger">@errorMessage</strong><br />
+                        }
+                        <br />
+                    }
                     <form asp-controller="Account" asp-action="RegisterNgo" method="post">
                         <div class="form-group">
                             <label asp-for="FantasyName" class="control-label">Nome Fantasia *</label>

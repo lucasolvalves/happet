@@ -1,12 +1,15 @@
-﻿using System;
+﻿using Happet.Models;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace Happet.ViewModel
 {
-    public record RegisterViewModel
+    public record RegisterPeopleViewModel
     {
         public Guid Id { get; set; } = Guid.NewGuid();
         public string UserId { get; set; }
+
+        public ETypePeople TypePeople { get; set; }
 
         [Display(Name = "Área de Atuação")]
         [StringLength(50, ErrorMessage = "O campo {0} não pode exceder {1} caracteres.")]

@@ -16,6 +16,9 @@ namespace Happet.Models
         public string UserId { get; set; }
         public virtual IdentityUser IdentityUser { get; set; }
 
+        [Required]
+        public ETypePeople TypePeople { get; set; }
+
         [StringLength(50)]
         public string OccupationArea { get; set; }
 
