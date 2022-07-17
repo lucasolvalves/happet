@@ -1,0 +1,95 @@
+﻿@model RegisterGiveAwayViewModel
+@{
+    ViewData["Title"] = "Faça sua doação";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-5 mx-auto">
+            <div id="first">
+                <div class="myform form ">
+                    <div class="logo mb-3">
+                        <div class="col-md-12 text-center">
+                            <h1>Faça sua doação</h1>
+                        </div>
+                    </div>
+                    <form asp-controller="Donation" asp-action="GiveAway" method="post">
+                        <input asp-for="IdPet" class="form-control" />
+                        <div class="form-group">
+                            <label asp-for="FullName" class="control-label">Nome do titular *</label>
+                            <input asp-for="FullName" class="form-control" />
+                            <span asp-validation-for="FullName" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="CellPhone" class="control-label">Celular</label>
+                            <input asp-for="CellPhone" class="form-control" />
+                            <span asp-validation-for="CellPhone" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="CreditCardNumber" class="control-label">Número do cartão de crédito *</label>
+                            <input asp-for="CreditCardNumber" class="form-control" onKeyPress="if(this.value.length==16) return false;" />
+                            <span asp-validation-for="CreditCardNumber" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="CreditCardExpirationMonth" class="control-label">Valido até *</label>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <input asp-for="CreditCardExpirationMonth" class="form-control" onKeyPress="if(this.value.length==2) return false;" placeholder="MM" />
+                                    <span asp-validation-for="CreditCardExpirationMonth" class="text-danger"></span>
+                                </div>
+                                <span style="font-size:23px;">/</span>
+                                <div class="col-md-3">
+                                    <input asp-for="CreditCardExpirationYear" class="form-control" onKeyPress="if(this.value.length==2) return false;" placeholder="AA" />
+                                    <span asp-validation-for="CreditCardExpirationYear" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="CVV" class="control-label">Código de segurança (CVV) *</label>
+                            <input asp-for="CVV" class="form-control" onKeyPress="if(this.value.length==4) return false;" />
+                            <span asp-validation-for="CVV" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Address" class="control-label">Endereço de cobrança *</label>
+                            <input asp-for="Address" class="form-control" />
+                            <span asp-validation-for="Address" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="District" class="control-label">Bairro *</label>
+                            <input asp-for="District" class="form-control" />
+                            <span asp-validation-for="District" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="City" class="control-label">Cidade *</label>
+                            <input asp-for="City" class="form-control" />
+                            <span asp-validation-for="City" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="State" class="control-label">Estado *</label>
+                            <input asp-for="State" class="form-control" />
+                            <span asp-validation-for="State" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="CEP" class="control-label">CEP *</label>
+                            <input asp-for="CEP" class="form-control" />
+                            <span asp-validation-for="CEP" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Email" class="control-label">Email *</label>
+                            <input asp-for="Email" class="form-control" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Value" class="control-label">Valor *</label>
+                            <input asp-for="Value" class="form-control" />
+                            <span asp-validation-for="Value" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-2">
+                            <button type="submit" class="btn btn-success btn-lg">Doar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

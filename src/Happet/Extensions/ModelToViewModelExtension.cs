@@ -1,11 +1,14 @@
 ﻿using Happet.Models;
 using Happet.ViewModel;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Happet.Extensions
 {
     public static class ModelToViewModelExtension
     {
-        public static EditAdopterViewModel ToViewModel(this Adopter adopter)
+        public static EditAdopterViewModel ToViewModelEdit(this Adopter adopter)
         {
             return new EditAdopterViewModel()
             {
@@ -28,7 +31,7 @@ namespace Happet.Extensions
             };
         }
 
-        public static EditNgoViewModel ToViewModel(this Ngo ngo)
+        public static EditNgoViewModel ToViewModelEdit(this Ngo ngo)
         {
             return new EditNgoViewModel()
             {
@@ -47,6 +50,59 @@ namespace Happet.Extensions
                 FantasyName = ngo.FantasyName,
                 CNPJ = ngo.CNPJ
             };
+        }
+
+        public static EditPetViewModel ToViewModelEdit(this Pet pet)
+        {
+            return new EditPetViewModel()
+            {
+                Id = pet.Id,
+                Name = pet.Name,
+                Breed = pet.Breed,
+                Color = pet.Color,
+                Age = pet.Age,
+                Weight = pet.Weight,
+                TypeGender = pet.TypeGender,
+                Castrated = pet.Castrated,
+                Location = pet.Location,
+                IdVaccineCard = pet.IdVaccineCard,
+                TypePet = pet.TypePet,
+                Observation = pet.Observation,
+                Status = pet.Status
+            };
+        }
+
+        public static DetailPetViewModel ToViewModel(this Pet pet)
+        {
+            return new DetailPetViewModel()
+            {
+                Id = pet.Id,
+                Name = pet.Name,
+                Breed = pet.Breed,
+                Color = pet.Color,
+                Age = pet.Age,
+                Weight = pet.Weight,
+                TypeGender = pet.TypeGender,
+                Castrated = pet.Castrated,
+                Location = pet.Location,
+                Vaccines = pet.VaccineCard?.VacineCardItems.Select(x => x.Vaccine),
+                TypePet = pet.TypePet,
+                ImageBytes = pet.ImageBytes,
+                Observation = pet.Observation,
+                Status = pet.Status,
+                CreateDate = pet.CreateDate
+            };
+        }
+
+        public static IEnumerable<VaccineViewModel> ToViewModel(this IEnumerable<Vaccine> vaccines)
+        {
+            return vaccines.Select(vaccine =>
+            new VaccineViewModel()
+            {
+                Id = vaccine.Id,
+                Description = vaccine.Description,
+                Checked = false
+            });
         }
     }
 }

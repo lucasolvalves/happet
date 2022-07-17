@@ -1,11 +1,13 @@
 ﻿using Happet.Models;
 using Happet.ViewModel;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Happet.Extensions
 {
     public static class ViewModelToModelExtension
     {
-        public static Adopter ToModel(this RegisterAdopterViewModel registerAdopterViewModel)
+        public static Adopter ToRegisterModel(this RegisterAdopterViewModel registerAdopterViewModel)
         {
             return new Adopter()
             {
@@ -31,7 +33,7 @@ namespace Happet.Extensions
             };
         }
 
-        public static Ngo ToModel(this RegisterNgoViewModel registerNgoViewModel)
+        public static Ngo ToRegisterModel(this RegisterNgoViewModel registerNgoViewModel)
         {
             return new Ngo()
             {
@@ -55,7 +57,7 @@ namespace Happet.Extensions
             };
         }
 
-        public static Adopter ToModel(this EditAdopterViewModel editAdopterViewModel)
+        public static Adopter ToEditModel(this EditAdopterViewModel editAdopterViewModel)
         {
             return new Adopter()
             {
@@ -81,7 +83,7 @@ namespace Happet.Extensions
             };
         }
 
-        public static Ngo ToModel(this EditNgoViewModel editNgoViewModel)
+        public static Ngo ToEditModel(this EditNgoViewModel editNgoViewModel)
         {
             return new Ngo()
             {
@@ -102,6 +104,50 @@ namespace Happet.Extensions
                 IdPeople = editNgoViewModel.Id,
                 FantasyName = editNgoViewModel.FantasyName,
                 CNPJ = editNgoViewModel.CNPJ
+            };
+        }
+
+        public static Pet ToRegisterModel(this RegisterPetViewModel registerPetViewModel)
+        {
+            return new Pet()
+            {
+                Id = registerPetViewModel.Id,
+                IdPeople = registerPetViewModel.IdPeople,
+                Name = registerPetViewModel.Name,
+                Breed = registerPetViewModel.Breed,
+                Color = registerPetViewModel.Color,
+                Age = registerPetViewModel.Age,
+                Weight = registerPetViewModel.Weight,
+                TypeGender = registerPetViewModel.TypeGender,
+                Castrated = registerPetViewModel.Castrated,
+                IdVaccineCard = registerPetViewModel.IdVaccineCard,
+                Location = registerPetViewModel.Location,
+                TypePet = registerPetViewModel.TypePet.Value,
+                ImageBytes = registerPetViewModel.ImageBytes,
+                ImageDescription = registerPetViewModel.ImageDescription,
+                Observation = registerPetViewModel.Observation,
+                Status = registerPetViewModel.Status,
+                CreateDate = registerPetViewModel.CreateDate
+            };
+        }
+
+        public static Donation ToRegisterModel(this RegisterGiveAwayViewModel registerGiveAwayViewModel)
+        {
+            return new Donation()
+            {
+                Id = registerGiveAwayViewModel.Id,
+                IdPet = registerGiveAwayViewModel.IdPet,
+                FullName = registerGiveAwayViewModel.FullName,
+                CellPhone = registerGiveAwayViewModel.CellPhone,
+                Address = registerGiveAwayViewModel.Address,
+                District = registerGiveAwayViewModel.District,
+                City = registerGiveAwayViewModel.City,
+                State = registerGiveAwayViewModel.State,
+                CEP = registerGiveAwayViewModel.CEP,
+                Email = registerGiveAwayViewModel.Email,
+                Value = registerGiveAwayViewModel.Value.Value,
+                Status = EStatusDonation.Approved,
+                PaymentDate = registerGiveAwayViewModel.PaymentDate
             };
         }
     }

@@ -1,4 +1,7 @@
-﻿
+﻿@model DetailPetViewModel
+@{
+    ViewData["Title"] = "Detalhes Pet";
+}
 <style>
     .list-group-item {
         border: none !important;
@@ -15,32 +18,38 @@
         <div class="col-md-6">
             <div>
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item"><span><b>Código:</b></span> 123</li>
-                    <li class="list-group-item"><span><b>Raça:</b></span> SRD</li>
-                    <li class="list-group-item"><span><b>Cor:</b></span> Branco e Preto</li>
-                    <li class="list-group-item"><span><b>Idade:</b></span> 5 anos</li>
-                    <li class="list-group-item"><span><b>Sexo:</b></span> Macho</li>
-                    <li class="list-group-item"><span><b>Castrado:</b></span> Sim</li>
-                    <li class="list-group-item">
-                        <span><b>Vacinas:</b></span>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2" checked>
-                            <label class="form-check-label" for="inlineCheckbox2">Raiva</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2" checked>
-                            <label class="form-check-label" for="inlineCheckbox2">V10</label>
-                        </div>
-                    </li>
-                    <li class="list-group-item"><span><b>Localidade:</b></span> Barretos - São Paulo</li>
-                    <li class="list-group-item"><span><b>Observação:</b></span> Animal agressivo quando está dentro da baia, quando alguém se aproxima ele fica com medo, late bastante.</li>
+                    <li class="list-group-item"><span><b>Código:</b></span> @Model.Id</li>
+                    <li class="list-group-item"><span><b>Raça:</b></span> @Model.Breed</li>
+                    <li class="list-group-item"><span><b>Cor:</b></span> @Model.Color</li>
+                    <li class="list-group-item"><span><b>Idade:</b></span> @(Model.Age is not null ? Model.Age + " meses" : "TBD")</li>
+                    <li class="list-group-item"><span><b>Peso:</b></span> @(Model.Weight is not null ? Model.Weight + " kg" : "TBD")</li>
+                    <li class="list-group-item"><span><b>Sexo:</b></span> @Html.DisplayTextFor(model => model.TypeGender)</li>
+                    <li class="list-group-item"><span><b>Castrado:</b></span> @(Model.Castrated ? "Sim" : "Não")</li>
+                    @if (Model.Vaccines is not null)
+                    {
+                        <li class="list-group-item">
+                            <span><b>Vacinas:</b></span>
+                            @foreach (var vaccine in Model.Vaccines)
+                            {
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" value="@vaccine.Id" checked onclick="return false;">
+                                    <label class="form-check-label" for="inlineCheckbox2">@vaccine.Description</label>
+                                </div>
+                            }
+                        </li>
+                    }
+                    <li class="list-group-item"><span><b>Localidade:</b></span> @Model.Location</li>
+                    <li class="list-group-item"><span><b>Tipo:</b></span> @Html.DisplayTextFor(model => model.TypePet)</li>
+                    <li class="list-group-item"><span><b>Observação:</b></span> @Model.Observation</li>
+                    <li class="list-group-item"><span><b>Status:</b></span> @Html.DisplayTextFor(model => model.Status)</li>
+                    <li class="list-group-item"><span><b>Data de cadastro:</b></span> @Model.CreateDate</li>
                 </ul>
             </div>
         </div>
         <div class="col-md-4">
             <div class="list-group">
-                <h3 class="text-center"><span>Jose</span></h3>
-                <img src="https://i0.wp.com/www.portaldodog.com.br/cachorros/wp-content/uploads/2021/03/visa%CC%83o-do-cachorro-2.jpeg?w=626&ssl=1">
+                <h3 class="text-center"><span>@Model.Name</span></h3>
+                <img src="@String.Format("data:image/gif;base64,{0}", Convert.ToBase64String(Model.ImageBytes))" />
             </div>
         </div>
     </div>
@@ -50,8 +59,11 @@
         <div class="col-md-2">
             <button onclick="history.back()" class="btn btn-primary btn-lg active" style="background-color: #7187FF; border-color: #0866F2;">Voltar</button>
         </div>
-        <div class="col-md-3">
-            <a asp-controller="Pet" asp-action="Adopt" asp-route-id="10" class="btn btn-secondary btn-lg active" style="background-color: #74FDB3; border-color: #08F24A;" role="button" aria-pressed="true">Adotar esse animal</a>
-        </div>
+        @if (Model.Status != EStatusPet.Adopted && Model.EnableToAdopt)
+        {
+            <div class="col-md-3">
+                <a asp-controller="Pet" asp-action="Term" asp-route-id="@Model.Id" class="btn btn-secondary btn-lg active" style="background-color: #74FDB3; border-color: #08F24A;" role="button" aria-pressed="true">Adotar esse animal</a>
+            </div>
+        }
     </div>
 </div>

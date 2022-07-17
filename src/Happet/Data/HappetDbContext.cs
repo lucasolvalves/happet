@@ -12,7 +12,13 @@ namespace Happet.Data
         }
 
         public DbSet<People> People { get; set; }
-        public DbSet<Adopter> Adopter { get; set; }
-        public DbSet<Ngo> Ngo { get; set; }
+        public DbSet<Adopter> Adopters { get; set; }
+        public DbSet<Ngo> Ngos { get; set; }
+        public DbSet<Pet> Pets { get; set; }
+        public DbSet<Vaccine> Vaccines { get; set; }
+        public DbSet<VaccineCard> VaccineCards { get; set; }
+        public DbSet<VacineCardItem> VacineCardItems { get; set; }
+        public DbSet<Adopt> Adoptions { get; set; }
+        public DbSet<Donation> Donations { get; set; }
     }
 }

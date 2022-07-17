@@ -1,0 +1,116 @@
+﻿@model TermViewModel
+@{
+    ViewData["Title"] = "Excluir Pet";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="modal fade bd-example-modal-lg" id="AdoptionTerm" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Termo de adoção responsável</h5>
+                        </div>
+                        <form asp-controller="Pet" asp-action="ToAdopt" method="post">
+                            <input asp-for="IdPeople" class="form-control" />
+                            <input asp-for="IdPet" class="form-control" />
+                            <div class="modal-body">
+                                <table class="table-responsive-md">
+                                    <thead>
+                                        <tr>
+                                            <td width="50%"><b>Nome do Adotante:</b>&nbsp;<span>@Model.FullName</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>Endereço Residencial:</b>&nbsp;<span>@Model.Address</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>Cidade/Estado:</b>&nbsp;<span>@Model.City/@Model.State</span></td>
+                                            <td><b>Bairro:</b>&nbsp;<span>@Model.District</span></td>
+                                            <td><b>CEP:</b>&nbsp;<span>@Model.CEP</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>Data de Nascimento:</b>&nbsp;<span>@Model.BirthDate.ToShortDateString()</span></td>
+                                            <td><b>CPF:</b>&nbsp;<span>@Model.CPF</span></td>
+                                            <td><b>RG:</b>&nbsp;<span>@Model.RG</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>Fone Celular:</b>&nbsp;<span>@Model.CellPhone</span></td>
+                                            <td><b>Profissão:</b>&nbsp;<span>@Model.OccupationArea</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>E-mail:</b>&nbsp;<span>@Model.Email</span></td>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                                <hr />
+                                <table class="table-responsive-md">
+                                    <thead>
+                                        <tr>
+                                            <td width="50%"><b>Nome do Animal:</b>&nbsp;<span>@Model.PetName</span></td>
+                                            <td><b>Raça:</b>&nbsp;<span>@Model.Breed</span></td>
+                                            <td><b>Espécie:</b>&nbsp;<span>@Html.DisplayTextFor(model => model.TypePet)</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>Peso:</b>&nbsp;<span>@(Model.Weight is not null ? Model.Weight + " kg" : "TBD")</span></td>
+                                            <td><b>Idade:</b>&nbsp;<span>@(Model.Age is not null ? Model.Age + " meses" : "TBD")</span></td>
+                                            <td><b>Sexo:</b>&nbsp;<span>@Html.DisplayTextFor(model => model.TypeGender)</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>Cor da pelagem:</b>&nbsp;<span>@Model.Color</span></td>
+                                        </tr>
+                                        @if (Model.Vaccines is not null)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    <b>Vacinas:</b>&nbsp;
+                                                    @foreach (var vaccine in Model.Vaccines)
+                                                    {
+                                                        <div class="form-check form-check-inline">
+                                                            <input class="form-check-input" type="checkbox" value="@vaccine" checked onclick="return false;">
+                                                            <label class="form-check-label" for="inlineCheckbox2">@vaccine</label>
+                                                        </div>
+                                                    }
+                                                </td>
+                                            </tr>
+                                        }
+                                        <tr>
+                                            <td><b>Castrado?</b>&nbsp;<span>@(Model.Castrated ? "Sim" : "Não")</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>Observação:</b>&nbsp;<span>@Model.Observation</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>End. do animal:</b>&nbsp;<span>@Model.PetLocation</span></td>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                                <hr />
+                                <p style="font-size:11px;">
+                                    Ao adotar o animal acima descrito declaro-me apto para assumir a guarda e a responsabilidade sobre este animal, eximindo o doador de toda e  qualquer responsabilidade por quaisquer atos praticados pelo animal a partir desta data. Declaro ainda estar ciente de todos os cuidados que este  animal exige no que se refere à sua guarda e manutenção, além de conhecer todos os riscos inerentes à espécie no convívio com humanos,  estando apto a guardá-lo e vigiá-lo, comprometendo-me a proporcionar boas condições de alojamento e alimentação, assim como, espaço físico  que possibilite o animal se exercitar.  Responsabilizo-me por preservar a saúde e integridade do animal e a submetê-lo aos cuidados médico veterinários sempre que necessário para  este fim. Comprometo-me a não transmitir a posse deste animal a outrem sem o conhecimento do doador. Comprometo-me também, a  permitir o acesso do doador ao local onde se encontra o animal para averiguação de suas condições.  Tenho conhecimento de que caso seja constatado por parte do doador situação inadequada para o bem estar do animal, perderei a sua guarda,  sem prejuízo das penalidades legais.  Comprometo-me ainda em ESTERILIZAR (castrar) o animal adotado , se o doador já não o tiver feito, contribuindo assim para o controle da  população de animais domésticos.  Comprometo-me a cumprir toda a legislação vigente, municipal, estadual e federal, relativa à posse de animais.  Declaro-me assim, ciente das normas acima, as quais aceito, assinando o presente Termo de Responsabilidade, assumindo plenamente os deveres  que dele constam, bem como outros relacionados à posse responsável e que não estejam incluídos neste Termo.
+                                    <br /><br />
+                                    <b style="color:red">Abandonar ou maltratar animais é crime. Pena: 3 meses a 1 ano de detenção e multa (Lei Federal 9605/98).</b>
+                                </p>
+
+                                <div class="form-check form-check-inline font-weight-bold">
+                                    <input class="form-check-input" type="checkbox" name="agreeTerm" onchange="if ($(this).is(':checked')) { $(this).attr('value', 'true'); } else { $(this).attr('value', 'false');}" />
+                                    <label class="form-check-label">Eu concordo com os termos de adoção.</label>
+                                </div>
+                                @if (TempData["term-is-required"] as bool? ?? false)
+                                {
+                                    <strong class="alert-danger"><br />É necessario concordar com os termos para prosseguir.</strong>
+                                }
+                            </div>
+                            <div class="modal-footer">
+                                <a class="btn btn-danger" asp-controller="Pet" asp-action="Details" asp-route-id="@Model.IdPet" style="color: white; cursor: pointer;">Cancelar</a>
+                                <button type="submit" class="btn btn-primary">Eu aceito</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

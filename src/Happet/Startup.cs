@@ -38,9 +38,24 @@ namespace Happet
                 .AddEntityFrameworkStores<HappetDbContext>();
 
             services.AddScoped<IAccountRepository, AccountRepository>();
+            services.AddScoped<IPetRepository, PetRepository>();
+            services.AddScoped<IVaccineRepository, VaccineRepository>();
+            services.AddScoped<IVaccineCardRepository, VaccineCardRepository>();
+            services.AddScoped<IDonationRepository, DonationRepository>();
 
             services.AddControllersWithViews();
             services.AddRazorPages().AddRazorRuntimeCompilation();
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("Ngo", policy =>
+                {
+                    policy.RequireClaim("Pet", "Create");
+                    policy.RequireClaim("Pet", "Edit");
+                    policy.RequireClaim("Pet", "Delete");
+                    policy.RequireClaim("Pet", "DetailsAdopter");
+                    policy.RequireClaim("Donation", "View");
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

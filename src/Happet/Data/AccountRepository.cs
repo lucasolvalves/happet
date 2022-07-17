@@ -62,7 +62,7 @@ namespace Happet.Data
         {
             try
             {
-                var adopter = await _context.Adopter
+                var adopter = await _context.Adopters
                     .Include(x => x.People)
                     .Include(x => x.People.IdentityUser)
                     .SingleAsync(x => x.IdPeople == peopleId);
@@ -79,7 +79,7 @@ namespace Happet.Data
         {
             try
             {
-                var ngo = await _context.Ngo
+                var ngo = await _context.Ngos
                     .Include(x => x.People)
                     .Include(x => x.People.IdentityUser)
                     .SingleAsync(x => x.IdPeople == peopleId);

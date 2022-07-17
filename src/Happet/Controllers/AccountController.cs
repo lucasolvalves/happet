@@ -6,13 +6,14 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Happet.Controllers
 {
-    [AllowAnonymous]
     public class AccountController : Controller
     {
         private readonly UserManager<IdentityUser> _userManager;
@@ -26,7 +27,7 @@ namespace Happet.Controllers
             _accountRepository = accountRepository;
         }
 
-        public ActionResult Login()
+        public IActionResult Login()
         {
             return View();
         }
@@ -51,6 +52,11 @@ namespace Happet.Controllers
                 TempData["error-message-login"] = "Usuário ou senha Inválidos.";
                 return View();
             }
+        }
+
+        public IActionResult AccessDenied()
+        {
+            return View();
         }
 
         [HttpPost]
@@ -94,7 +100,7 @@ namespace Happet.Controllers
                 return View();
 
             registerAdopterViewModel.UserId = newUser.Id;
-            await _accountRepository.AddAdopterAsync(registerAdopterViewModel.ToModel());
+            await _accountRepository.AddAdopterAsync(registerAdopterViewModel.ToRegisterModel());
 
             return RedirectToAction("Login");
         }
@@ -111,13 +117,24 @@ namespace Happet.Controllers
             if (!ModelState.IsValid)
                 return View();
 
-            var newUser = new IdentityUser { UserName = registerNgoViewModel.Email, Email = registerNgoViewModel.Email };
+            var newUser = new IdentityUser { UserName = registerNgoViewModel.Email, Email = registerNgoViewModel.Email, };
 
             if (!await CreateUser(newUser, registerNgoViewModel.Password))
                 return View();
 
+            IEnumerable<Claim> claims = new List<Claim>()
+            {
+                new Claim("Pet", "Create"),
+                new Claim("Pet", "Edit"),
+                new Claim("Pet", "Delete"),
+                new Claim("Pet", "DetailsAdopter"),
+                new Claim("Donation", "View")
+            };
+
+            await _userManager.AddClaimsAsync(newUser, claims);
+
             registerNgoViewModel.UserId = newUser.Id;
-            await _accountRepository.AddNgoAsync(registerNgoViewModel.ToModel());
+            await _accountRepository.AddNgoAsync(registerNgoViewModel.ToRegisterModel());
 
             return RedirectToAction("Login");
         }
@@ -132,6 +149,7 @@ namespace Happet.Controllers
             return identityResult.Succeeded;
         }
 
+        [Authorize]
         public async Task<IActionResult> Edit()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -140,12 +158,12 @@ namespace Happet.Controllers
             if (people.TypePeople == ETypePeople.Adopter)
             {
                 var adopter = await _accountRepository.GetAdopterByPeopleIdAsync(people.Id);
-                return View("EditAdopter", adopter.ToViewModel());
+                return View("EditAdopter", adopter.ToViewModelEdit());
             }
             else
             {
                 var ngo = await _accountRepository.GetNgoByPeopleIdAsync(people.Id);
-                return View("EditNgo", ngo.ToViewModel());
+                return View("EditNgo", ngo.ToViewModelEdit());
             }
         }
 
@@ -158,7 +176,7 @@ namespace Happet.Controllers
 
             if (string.IsNullOrEmpty(editAdopterViewModel.CurrentPassword) && string.IsNullOrEmpty(editAdopterViewModel.NewPassword))
             {
-                await _accountRepository.UpdateAdopterAsync(editAdopterViewModel.ToModel());
+                await _accountRepository.UpdateAdopterAsync(editAdopterViewModel.ToEditModel());
                 return RedirectToAction("Index", "Home");
             }
             else
@@ -166,7 +184,7 @@ namespace Happet.Controllers
                 if (!await EditUser(editAdopterViewModel.Email, editAdopterViewModel.CurrentPassword, editAdopterViewModel.NewPassword))
                     return View();
 
-                await _accountRepository.UpdateAdopterAsync(editAdopterViewModel.ToModel());
+                await _accountRepository.UpdateAdopterAsync(editAdopterViewModel.ToEditModel());
                 return RedirectToAction("Index", "Home");
             }
         }
@@ -180,7 +198,7 @@ namespace Happet.Controllers
 
             if (string.IsNullOrEmpty(editNgoViewModel.CurrentPassword) && string.IsNullOrEmpty(editNgoViewModel.NewPassword))
             {
-                await _accountRepository.UpdateNgoAsync(editNgoViewModel.ToModel());
+                await _accountRepository.UpdateNgoAsync(editNgoViewModel.ToEditModel());
                 return RedirectToAction("Index", "Home");
             }
             else
@@ -188,7 +206,7 @@ namespace Happet.Controllers
                 if (!await EditUser(editNgoViewModel.Email, editNgoViewModel.CurrentPassword, editNgoViewModel.NewPassword))
                     return View();
 
-                await _accountRepository.UpdateNgoAsync(editNgoViewModel.ToModel());
+                await _accountRepository.UpdateNgoAsync(editNgoViewModel.ToEditModel());
                 return RedirectToAction("Index", "Home");
             }
         }
